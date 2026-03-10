@@ -38,6 +38,12 @@ function changeSlide() {
 		imageElement.src = `./assets/images/slideshow/${slides[index].image}`
 		tagLineElement.innerHTML = slides[index].tagLine
 	})
+
+	leftArrow.addEventListener("click", () => {
+		index = (index - 1 + slides.length) % slides.length
+		imageElement.src = `./assets/images/slideshow/${slides[index].image}`
+		tagLineElement.innerHTML = slides[index].tagLine
+	})
 }
 
 createDots()
