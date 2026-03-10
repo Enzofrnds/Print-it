@@ -24,6 +24,18 @@ function createDots() {
 		dot.classList.add("dot")
 		dotsContainer.appendChild(dot)
 	}
+	const dots = document.querySelectorAll(".dot")
+	dots[0].classList.add("dot_selected")
+}
+
+function updateDots(index) {
+	const dots = document.querySelectorAll(".dot")
+	for (let i = 0; i < dots.length; i++) {
+		dots[i].classList.remove("dot_selected")
+		if (i === index) {
+			dots[i].classList.add("dot_selected")
+		}
+	}
 }
 
 function changeSlide() {
@@ -37,12 +49,14 @@ function changeSlide() {
 		index = (index + 1) % slides.length
 		imageElement.src = `./assets/images/slideshow/${slides[index].image}`
 		tagLineElement.innerHTML = slides[index].tagLine
+		updateDots(index)
 	})
 
 	leftArrow.addEventListener("click", () => {
 		index = (index - 1 + slides.length) % slides.length
 		imageElement.src = `./assets/images/slideshow/${slides[index].image}`
 		tagLineElement.innerHTML = slides[index].tagLine
+		updateDots(index)
 	})
 }
 
