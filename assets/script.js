@@ -17,15 +17,20 @@ const slides = [
 	}
 ]
 
+let index = 0
+const leftArrow = document.querySelector(".arrow_left")
+const rightArrow = document.querySelector(".arrow_right")
+const imageElement = document.querySelector(".banner-img")
+const tagLineElement = document.querySelector("#banner p")
+
 function createDots() {
 	const dotsContainer = document.querySelector(".dots")
 	for (let i = 0; i < slides.length; i++) {
 		const dot = document.createElement("span")
 		dot.classList.add("dot")
+		dot.id = `dot-${i}`
 		dotsContainer.appendChild(dot)
 	}
-	const dots = document.querySelectorAll(".dot")
-	dots[0].classList.add("dot_selected")
 }
 
 function updateDots(index) {
@@ -38,12 +43,19 @@ function updateDots(index) {
 	}
 }
 
-function changeSlide() {
-	let index = 0
-	const leftArrow = document.querySelector(".arrow_left")
-	const rightArrow = document.querySelector(".arrow_right")
-	const imageElement = document.querySelector(".banner-img")
-	const tagLineElement = document.querySelector("#banner p")
+function changeSlideDot(){
+	const dots = document.querySelectorAll(".dot")
+	dots.forEach((dot, i) => {
+		dot.addEventListener("click", () => {
+			index = i
+			imageElement.src = `./assets/images/slideshow/${slides[index].image}`
+			tagLineElement.innerHTML = slides[index].tagLine
+			updateDots(index)
+		})
+	})
+}
+
+function changeSlideArrow() {
 
 	rightArrow.addEventListener("click", () => {
 		index = (index + 1) % slides.length
@@ -61,4 +73,6 @@ function changeSlide() {
 }
 
 createDots()
-changeSlide()
+updateDots(index)
+changeSlideArrow()
+changeSlideDot()
