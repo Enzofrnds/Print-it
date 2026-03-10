@@ -26,4 +26,19 @@ function createDots() {
 	}
 }
 
+function changeSlide() {
+	let index = 0
+	const leftArrow = document.querySelector(".arrow_left")
+	const rightArrow = document.querySelector(".arrow_right")
+	const imageElement = document.querySelector(".banner-img")
+	const tagLineElement = document.querySelector("#banner p")
+
+	rightArrow.addEventListener("click", () => {
+		index = (index + 1) % slides.length
+		imageElement.src = `./assets/images/slideshow/${slides[index].image}`
+		tagLineElement.innerHTML = slides[index].tagLine
+	})
+}
+
 createDots()
+changeSlide()
