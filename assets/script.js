@@ -33,46 +33,36 @@ function createDots() {
 	}
 }
 
-function updateDots(index) {
-	const dots = document.querySelectorAll(".dot")
+createDots()
+
+const dots = document.querySelectorAll(".dot")
+
+function updateSlide(index) {
 	for (let i = 0; i < dots.length; i++) {
 		dots[i].classList.remove("dot_selected")
+		imageElement.src = `./assets/images/slideshow/${slides[index].image}`
+		tagLineElement.innerHTML = slides[index].tagLine
 		if (i === index) {
 			dots[i].classList.add("dot_selected")
 		}
 	}
 }
 
-function changeSlideDot(){
-	const dots = document.querySelectorAll(".dot")
-	dots.forEach((dot, i) => {
-		dot.addEventListener("click", () => {
-			index = i
-			imageElement.src = `./assets/images/slideshow/${slides[index].image}`
-			tagLineElement.innerHTML = slides[index].tagLine
-			updateDots(index)
-		})
+updateSlide(index)
+
+dots.forEach((dot, i) => {
+	dot.addEventListener("click", () => {
+		index = i
+		updateSlide(index)
 	})
-}
+})
 
-function changeSlideArrow() {
+rightArrow.addEventListener("click", () => {
+	index = (index + 1) % slides.length
+	updateSlide(index)
+})
 
-	rightArrow.addEventListener("click", () => {
-		index = (index + 1) % slides.length
-		imageElement.src = `./assets/images/slideshow/${slides[index].image}`
-		tagLineElement.innerHTML = slides[index].tagLine
-		updateDots(index)
-	})
-
-	leftArrow.addEventListener("click", () => {
-		index = (index - 1 + slides.length) % slides.length
-		imageElement.src = `./assets/images/slideshow/${slides[index].image}`
-		tagLineElement.innerHTML = slides[index].tagLine
-		updateDots(index)
-	})
-}
-
-createDots()
-updateDots(index)
-changeSlideArrow()
-changeSlideDot()
+leftArrow.addEventListener("click", () => {
+	index = (index - 1 + slides.length) % slides.length
+	updateSlide(index)
+})
